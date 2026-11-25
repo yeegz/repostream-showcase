@@ -21,29 +21,29 @@
     "t+8s docker pause postgres",
     "t+53s docker unpause postgres"
   ],
-  "seconds_to_caught_up": 59.0,
-  "producer_seconds": 38.5,
-  "end_to_end_msgs_per_second": 2556,
+  "seconds_to_caught_up": 60.4,
+  "producer_seconds": 38.6,
+  "end_to_end_msgs_per_second": 2495,
   "dlq_messages": 6,
-  "late_events_flagged": 126,
-  "processing_lag_p50_s": 27.284335856238656,
-  "processing_lag_p99_s": 59.34681124660464,
+  "late_events_flagged": 376,
+  "processing_lag_p50_s": 27.379878639057445,
+  "processing_lag_p99_s": 59.35230447427614,
   "partition_assignments_logged": 7,
   "consumer_memory_after": [
-    "repostream-consumer-1 93.5MiB / 512MiB",
-    "repostream-consumer-2 80.12MiB / 512MiB",
-    "repostream-consumer-3 97.15MiB / 512MiB"
+    "repostream-consumer-3 78.78MiB / 512MiB",
+    "repostream-consumer-1 131.9MiB / 512MiB",
+    "repostream-consumer-2 124.3MiB / 512MiB"
   ],
-  "max_broker_lag": 114403.0,
+  "max_broker_lag": 112157.0,
   "quiet_before_start": true,
   "alerts_pending_at_s": {
-    "ConsumerLagHigh": 30.7,
-    "ConsumerStalled": 36.8,
-    "ProcessingLatencySLOBurn": 60.9
+    "ConsumerLagHigh": 33.2,
+    "ConsumerStalled": 33.2,
+    "ProcessingLatencySLOBurn": 63.4
   },
   "alerts_fired_at_s": {
-    "ConsumerStalled": 46.8,
-    "ConsumerLagHigh": 60.9
+    "ConsumerStalled": 43.2,
+    "ConsumerLagHigh": 63.4
   },
   "reconcile": {
     "window": [
@@ -57,9 +57,9 @@
     "keys_stream": 131181,
     "mismatched_keys": 0,
     "extra_keys": 0,
-    "late_events_flagged": 126,
+    "late_events_flagged": 376,
     "exact_match": true,
     "sample_mismatches": []
   },
-  "ran_at": "2026-11-25T04:36:34.875763+00:00"
+  "ran_at": "2026-11-25T04:47:08.078679+00:00"
 }

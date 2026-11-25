@@ -8,10 +8,10 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/gifs/outage-live-dark.gif">
-  <img src="assets/gifs/outage-live-light.gif" alt="Grafana during a recorded experiment: Postgres is frozen for 45 seconds, consumer group lag climbs past 110,000 messages, the time since the last offset commit rises to about 45 seconds and an alert fires, then lag drains to zero after Postgres comes back">
+  <img src="assets/gifs/outage-live-light.gif" width="760" alt="Grafana during a recorded experiment: Postgres is frozen for 45 seconds, consumer group lag climbs past 110,000 messages and the time since the last offset commit rises to about 44 seconds, then lag drains to zero after Postgres comes back">
 </picture>
 
-<p align="center"><sub>Recorded live: Postgres frozen with <code>docker pause</code> for 45 s mid-stream. Lag climbs and commits stop (the stall alert fired at 46.8 s in this run); after the database returns, the backlog drains. The result still matched the batch path on every key.</sub></p>
+<p align="center"><sub>Recorded live (<a href="results/experiments/showcase-capture-postgres_outage.json">this run's result</a>): Postgres frozen with <code>docker pause</code> for 45 s mid-stream. Lag climbs and commits stop (the stall alert fired 43.2 s into this run); after the database returns, the backlog drains. The result still matched the batch path on every key.</sub></p>
 
 ## What it does
 
@@ -113,10 +113,6 @@ The goal was to flag hours whose captured volume is implausibly low. A gradient-
 - **Cloud design:** Terraform for Google Cloud (Cloud Run job, Cloud SQL, Cloud Storage, Secret Manager, per-workload service accounts). It is validated and scanned but **never applied**; the cost estimate is in [docs/cloud.md](docs/cloud.md).
 - **Security review:** [docs/security.md](docs/security.md), including the gaps that remain.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/screens/outage-dashboard-dark.png">
-  <img src="assets/screens/outage-dashboard-light.png" alt="Grafana panels right after the Postgres freeze: consumed messages per second, consumer group lag peaking near 115,000, produce-to-commit latency p50 and p99, and seconds since the last offset commit peaking near 45 seconds">
-</picture>
 
 ## Honest status
 
