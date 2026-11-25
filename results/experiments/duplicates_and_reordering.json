@@ -1,0 +1,60 @@
+{
+  "experiment": "duplicates_and_reordering",
+  "window": [
+    "2026-11-20T00",
+    "2026-11-21T00"
+  ],
+  "consumers": 3,
+  "producer": {
+    "sent": 165659,
+    "poison": 0,
+    "duplicates": 14958,
+    "errors": 0,
+    "seconds": 41.42,
+    "msgs_per_second": 3999
+  },
+  "producer_args": [
+    "--rate",
+    "4000",
+    "--duplicate-rate",
+    "0.10",
+    "--shuffle-window",
+    "20000"
+  ],
+  "chaos": [],
+  "seconds_to_caught_up": 44.4,
+  "producer_seconds": 42.3,
+  "end_to_end_msgs_per_second": 3734,
+  "dlq_messages": 8,
+  "late_events_flagged": 69714,
+  "processing_lag_p50_s": 0.6927051693714021,
+  "processing_lag_p99_s": 3.848122219620697,
+  "partition_assignments_logged": 7,
+  "consumer_memory_after": [
+    "repostream-consumer-1 121.8MiB / 512MiB",
+    "repostream-consumer-2 72.47MiB / 512MiB",
+    "repostream-consumer-3 72.83MiB / 512MiB"
+  ],
+  "max_broker_lag": 3417.0,
+  "quiet_before_start": true,
+  "alerts_pending_at_s": {},
+  "alerts_fired_at_s": {},
+  "reconcile": {
+    "window": [
+      "2026-11-20T00",
+      "2026-11-21T00"
+    ],
+    "batch_events": 150695,
+    "stream_events_table": 150695,
+    "stream_aggregate_sum": 150695,
+    "keys_batch": 131181,
+    "keys_stream": 131181,
+    "mismatched_keys": 0,
+    "extra_keys": 0,
+    "late_events_flagged": 69714,
+    "exact_match": true,
+    "sample_mismatches": []
+  },
+  "ran_at": "2026-11-25T03:30:06.729802+00:00",
+  "consumer_group": "exp-duplicates_and_reordering-20261125032715"
+}

@@ -1,0 +1,60 @@
+{
+  "queries": {
+    "ecosystem_rollup": {
+      "duckdb": {
+        "p50_ms": 1.949,
+        "min_ms": 1.742,
+        "max_ms": 2.32,
+        "n": 20
+      },
+      "postgres": {
+        "p50_ms": 119.101,
+        "min_ms": 116.51,
+        "max_ms": 124.453,
+        "n": 20
+      }
+    },
+    "window_top_stars": {
+      "duckdb": {
+        "p50_ms": 24.592,
+        "min_ms": 22.766,
+        "max_ms": 29.506,
+        "n": 20
+      },
+      "postgres": {
+        "p50_ms": 1489.866,
+        "min_ms": 1445.64,
+        "max_ms": 1717.975,
+        "n": 20
+      }
+    },
+    "repo_history": {
+      "duckdb": {
+        "p50_ms": 3.889,
+        "min_ms": 3.738,
+        "max_ms": 4.528,
+        "n": 20
+      },
+      "postgres": {
+        "p50_ms": 0.561,
+        "min_ms": 0.516,
+        "max_ms": 1.061,
+        "n": 20
+      }
+    }
+  },
+  "storage": {
+    "rows": 150695,
+    "columns": 17,
+    "bytes": {
+      "raw_archive_gz_all_fields": 121019375,
+      "ndjson_gzip": 6882119,
+      "csv": 23332422,
+      "parquet_snappy": 7183756,
+      "parquet_zstd": 5372335,
+      "postgres_heap": 23699456,
+      "postgres_heap_plus_pk_index": 27107328
+    },
+    "note": "raw archive keeps every payload field; all other rows hold the 17 silver columns"
+  }
+}

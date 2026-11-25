@@ -1,0 +1,268 @@
+{
+  "env": {
+    "machine": "arm64",
+    "python": "3.12.16",
+    "postgres": "17.6",
+    "note": "Postgres 17 in Docker (colima VM), shared_buffers=512MB, same laptop as client"
+  },
+  "pk_only": {
+    "load": [
+      {
+        "table": "repo_daily_activity",
+        "rows": 2564537,
+        "copy_seconds": 4.67,
+        "total_seconds": 6.81
+      },
+      {
+        "table": "pr_lifecycle",
+        "rows": 371948,
+        "copy_seconds": 0.83,
+        "total_seconds": 0.98
+      },
+      {
+        "table": "ecosystem_daily",
+        "rows": 26,
+        "copy_seconds": 0.02,
+        "total_seconds": 0.02
+      }
+    ],
+    "sizes": {
+      "repo_daily_activity": 483033088,
+      "repo_daily_activity_load_pkey": 80912384
+    },
+    "queries": {
+      "repo_history": {
+        "n": 300,
+        "p50_ms": 32.972,
+        "p95_ms": 34.718,
+        "p99_ms": 35.214,
+        "mean_ms": 33.283,
+        "plan": [
+          "Index Scan using repo_daily_activity_load_pkey on repo_daily_activity  (cost=0.43..58757.96 rows=4 width=150) (actual time=16.662..33.220 rows=1 loops=1)",
+          "  Index Cond: (repo_id = 1424077076)",
+          "  Buffers: shared hit=9829",
+          "Planning Time: 0.070 ms",
+          "Execution Time: 33.262 ms"
+        ]
+      },
+      "repo_by_name": {
+        "n": 300,
+        "p50_ms": 250.258,
+        "p95_ms": 266.335,
+        "p99_ms": 297.206,
+        "mean_ms": 253.507,
+        "plan": [
+          "Finalize GroupAggregate  (cost=76323.20..77902.81 rows=12734 width=40) (actual time=241.542..244.742 rows=1 loops=1)",
+          "  Group Key: repo_id",
+          "  Buffers: shared hit=34411 read=24627",
+          "  I/O Timings: shared read=35.889",
+          "  ->  Gather Merge  (cost=76323.20..77663.49 rows=10686 width=40) (actual time=241.538..244.738 rows=1 loops=1)",
+          "        Workers Planned: 2",
+          "        Workers Launched: 2",
+          "        Buffers: shared hit=34411 read=24627",
+          "        I/O Timings: shared read=35.889",
+          "        ->  Partial GroupAggregate  (cost=75323.18..75430.04 rows=5343 width=40) (actual time=239.914..239.915 rows=0 loops=3)",
+          "              Group Key: repo_id",
+          "              Buffers: shared hit=34411 read=24627",
+          "              I/O Timings: shared read=35.889",
+          "              ->  Sort  (cost=75323.18..75336.54 rows=5343 width=16) (actual time=239.911..239.911 rows=0 loops=3)",
+          "                    Sort Key: repo_id",
+          "                    Sort Method: quicksort  Memory: 25kB",
+          "                    Buffers: shared hit=34411 read=24627",
+          "                    I/O Timings: shared read=35.889",
+          "                    Worker 0:  Sort Method: quicksort  Memory: 25kB",
+          "                    Worker 1:  Sort Method: quicksort  Memory: 25kB",
+          "                    ->  Parallel Seq Scan on repo_daily_activity  (cost=0.00..74992.36 rows=5343 width=16) (actual time=160.710..239.852 rows=0 loops=3)",
+          "                          Filter: (lower(repo_name) = 'samirbridi/api-privacy-guard'::text)",
+          "                          Rows Removed by Filter: 854845",
+          "                          Buffers: shared hit=34337 read=24627",
+          "                          I/O Timings: shared read=35.889",
+          "Planning Time: 0.080 ms",
+          "Execution Time: 244.784 ms"
+        ]
+      },
+      "daily_top_stars": {
+        "n": 300,
+        "p50_ms": 11.506,
+        "p95_ms": 25.747,
+        "p99_ms": 37.674,
+        "mean_ms": 14.089,
+        "plan": [
+          "Limit  (cost=59230.67..59230.72 rows=20 width=42) (actual time=11.827..11.830 rows=20 loops=1)",
+          "  Buffers: shared hit=1639",
+          "  ->  Sort  (cost=59230.67..59336.03 rows=42144 width=42) (actual time=11.827..11.827 rows=20 loops=1)",
+          "        Sort Key: stars DESC, repo_id",
+          "        Sort Method: top-N heapsort  Memory: 27kB",
+          "        Buffers: shared hit=1639",
+          "        ->  Bitmap Heap Scan on repo_daily_activity  (cost=979.05..58109.24 rows=42144 width=42) (actual time=1.846..7.601 rows=44735 loops=1)",
+          "              Recheck Cond: (dt = '2026-11-24'::date)",
+          "              Heap Blocks: exact=1465",
+          "              Buffers: shared hit=1639",
+          "              ->  Bitmap Index Scan on repo_daily_activity_load_pkey  (cost=0.00..968.51 rows=42144 width=0) (actual time=1.734..1.734 rows=44735 loops=1)",
+          "                    Index Cond: (dt = '2026-11-24'::date)",
+          "                    Buffers: shared hit=174",
+          "Planning Time: 0.056 ms",
+          "Execution Time: 11.882 ms"
+        ]
+      },
+      "window_top_merged": {
+        "n": 300,
+        "p50_ms": 318.524,
+        "p95_ms": 537.017,
+        "p99_ms": 605.255,
+        "mean_ms": 335.011,
+        "plan": [
+          "Limit  (cost=155456.83..155456.88 rows=20 width=40) (actual time=465.515..465.518 rows=20 loops=1)",
+          "  Buffers: shared hit=18807, temp read=582 written=1312",
+          "  I/O Timings: temp read=0.759 write=3.429",
+          "  ->  Sort  (cost=155456.83..156627.69 rows=468345 width=40) (actual time=458.321..458.323 rows=20 loops=1)",
+          "        Sort Key: (sum(prs_merged)) DESC",
+          "        Sort Method: top-N heapsort  Memory: 25kB",
+          "        Buffers: shared hit=18807, temp read=582 written=1312",
+          "        I/O Timings: temp read=0.759 write=3.429",
+          "        ->  HashAggregate  (cost=130471.56..142994.34 rows=468345 width=40) (actual time=314.144..407.727 rows=489318 loops=1)",
+          "              Group Key: repo_id",
+          "              Batches: 5  Memory Usage: 65585kB  Disk Usage: 7104kB",
+          "              Buffers: shared hit=18807, temp read=582 written=1312",
+          "              I/O Timings: temp read=0.759 write=3.429",
+          "              ->  Bitmap Heap Scan on repo_daily_activity  (cost=17519.65..86726.42 rows=682851 width=16) (actual time=32.605..89.168 rows=675696 loops=1)",
+          "                    Recheck Cond: ((dt >= '2026-11-10'::date) AND (dt <= '2026-11-16'::date))",
+          "                    Heap Blocks: exact=16215",
+          "                    Buffers: shared hit=18807",
+          "                    ->  Bitmap Index Scan on repo_daily_activity_load_pkey  (cost=0.00..17348.94 rows=682851 width=0) (actual time=31.039..31.039 rows=675696 loops=1)",
+          "                          Index Cond: ((dt >= '2026-11-10'::date) AND (dt <= '2026-11-16'::date))",
+          "                          Buffers: shared hit=2592",
+          "Planning Time: 0.087 ms",
+          "JIT:",
+          "  Functions: 13",
+          "  Options: Inlining false, Optimization false, Expressions true, Deforming true",
+          "  Timing: Generation 1.557 ms (Deform 0.464 ms), Inlining 0.000 ms, Optimization 1.592 ms, Emission 11.079 ms, Total 14.227 ms",
+          "Execution Time: 470.504 ms"
+        ]
+      }
+    }
+  },
+  "with_indexes": {
+    "load": [
+      {
+        "table": "repo_daily_activity",
+        "rows": 2564537,
+        "copy_seconds": 5.65,
+        "total_seconds": 13.74
+      },
+      {
+        "table": "pr_lifecycle",
+        "rows": 371948,
+        "copy_seconds": 0.83,
+        "total_seconds": 0.98
+      },
+      {
+        "table": "ecosystem_daily",
+        "rows": 26,
+        "copy_seconds": 0.02,
+        "total_seconds": 0.02
+      }
+    ],
+    "sizes": {
+      "repo_daily_activity": 483033088,
+      "repo_daily_activity_load_lower_idx": 85393408,
+      "repo_daily_activity_load_pkey1": 80912384,
+      "repo_daily_activity_load_repo_id_dt_idx": 80838656,
+      "repo_daily_activity_load_dt_stars_idx": 18128896,
+      "repo_daily_activity_load_dt_prs_merged_idx": 18120704
+    },
+    "queries": {
+      "repo_history": {
+        "n": 300,
+        "p50_ms": 0.568,
+        "p95_ms": 0.833,
+        "p99_ms": 1.242,
+        "mean_ms": 0.611,
+        "plan": [
+          "Index Scan using repo_daily_activity_load_repo_id_dt_idx on repo_daily_activity  (cost=0.43..20.50 rows=4 width=150) (actual time=0.017..0.017 rows=1 loops=1)",
+          "  Index Cond: (repo_id = 1424077076)",
+          "  Buffers: shared hit=4",
+          "Planning Time: 0.084 ms",
+          "Execution Time: 0.033 ms"
+        ]
+      },
+      "repo_by_name": {
+        "n": 300,
+        "p50_ms": 0.559,
+        "p95_ms": 0.853,
+        "p99_ms": 1.051,
+        "mean_ms": 0.583,
+        "plan": [
+          "GroupAggregate  (cost=20.54..20.62 rows=4 width=40) (actual time=0.035..0.035 rows=1 loops=1)",
+          "  Group Key: repo_id",
+          "  Buffers: shared hit=4",
+          "  ->  Sort  (cost=20.54..20.55 rows=4 width=16) (actual time=0.034..0.034 rows=1 loops=1)",
+          "        Sort Key: repo_id",
+          "        Sort Method: quicksort  Memory: 25kB",
+          "        Buffers: shared hit=4",
+          "        ->  Index Scan using repo_daily_activity_load_lower_idx on repo_daily_activity  (cost=0.43..20.50 rows=4 width=16) (actual time=0.029..0.029 rows=1 loops=1)",
+          "              Index Cond: (lower(repo_name) = 'samirbridi/api-privacy-guard'::text)",
+          "              Buffers: shared hit=4",
+          "Planning Time: 0.076 ms",
+          "Execution Time: 0.059 ms"
+        ]
+      },
+      "daily_top_stars": {
+        "n": 300,
+        "p50_ms": 0.492,
+        "p95_ms": 0.741,
+        "p99_ms": 1.087,
+        "mean_ms": 0.523,
+        "plan": [
+          "Limit  (cost=8530.64..8586.43 rows=20 width=42) (actual time=0.038..0.041 rows=20 loops=1)",
+          "  Buffers: shared hit=26",
+          "  ->  Incremental Sort  (cost=8530.64..128491.49 rows=43007 width=42) (actual time=0.038..0.039 rows=20 loops=1)",
+          "        Sort Key: stars DESC, repo_id",
+          "        Presorted Key: stars",
+          "        Full-sort Groups: 1  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB",
+          "        Buffers: shared hit=26",
+          "        ->  Index Scan using repo_daily_activity_load_dt_stars_idx on repo_daily_activity  (cost=0.43..126809.20 rows=43007 width=42) (actual time=0.015..0.031 rows=23 loops=1)",
+          "              Index Cond: (dt = '2026-11-24'::date)",
+          "              Buffers: shared hit=26",
+          "Planning Time: 0.041 ms",
+          "Execution Time: 0.063 ms"
+        ]
+      },
+      "window_top_merged": {
+        "n": 300,
+        "p50_ms": 298.821,
+        "p95_ms": 491.298,
+        "p99_ms": 559.544,
+        "mean_ms": 310.909,
+        "plan": [
+          "Limit  (cost=145353.15..145353.20 rows=20 width=40) (actual time=446.110..446.113 rows=20 loops=1)",
+          "  Buffers: shared hit=16796, temp read=582 written=1312",
+          "  I/O Timings: temp read=1.055 write=4.469",
+          "  ->  Sort  (cost=145353.15..146523.22 rows=468030 width=40) (actual time=439.153..439.154 rows=20 loops=1)",
+          "        Sort Key: (sum(prs_merged)) DESC",
+          "        Sort Method: top-N heapsort  Memory: 25kB",
+          "        Buffers: shared hit=16796, temp read=582 written=1312",
+          "        I/O Timings: temp read=1.055 write=4.469",
+          "        ->  HashAggregate  (cost=120563.86..132899.04 rows=468030 width=40) (actual time=291.692..390.606 rows=489318 loops=1)",
+          "              Group Key: repo_id",
+          "              Batches: 5  Memory Usage: 65585kB  Disk Usage: 7104kB",
+          "              Buffers: shared hit=16796, temp read=582 written=1312",
+          "              I/O Timings: temp read=1.055 write=4.469",
+          "              ->  Bitmap Heap Scan on repo_daily_activity  (cost=9098.88..78023.54 rows=664044 width=16) (actual time=11.246..59.751 rows=675696 loops=1)",
+          "                    Recheck Cond: ((dt >= '2026-11-10'::date) AND (dt <= '2026-11-16'::date))",
+          "                    Heap Blocks: exact=16215",
+          "                    Buffers: shared hit=16796",
+          "                    ->  Bitmap Index Scan on repo_daily_activity_load_dt_prs_merged_idx  (cost=0.00..8932.87 rows=664044 width=0) (actual time=9.600..9.600 rows=675696 loops=1)",
+          "                          Index Cond: ((dt >= '2026-11-10'::date) AND (dt <= '2026-11-16'::date))",
+          "                          Buffers: shared hit=581",
+          "Planning Time: 0.158 ms",
+          "JIT:",
+          "  Functions: 13",
+          "  Options: Inlining false, Optimization false, Expressions true, Deforming true",
+          "  Timing: Generation 1.361 ms (Deform 0.452 ms), Inlining 0.000 ms, Optimization 1.157 ms, Emission 10.061 ms, Total 12.580 ms",
+          "Execution Time: 450.568 ms"
+        ]
+      }
+    }
+  }
+}

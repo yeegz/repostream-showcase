@@ -1,0 +1,56 @@
+{
+  "experiment": "baseline",
+  "window": [
+    "2026-11-20T00",
+    "2026-11-21T00"
+  ],
+  "consumers": 3,
+  "producer": {
+    "sent": 150701,
+    "poison": 0,
+    "duplicates": 0,
+    "errors": 0,
+    "seconds": 37.68,
+    "msgs_per_second": 4000
+  },
+  "producer_args": [
+    "--rate",
+    "4000"
+  ],
+  "chaos": [],
+  "seconds_to_caught_up": 39.9,
+  "producer_seconds": 38.8,
+  "end_to_end_msgs_per_second": 3774,
+  "dlq_messages": 6,
+  "late_events_flagged": 8,
+  "processing_lag_p50_s": 0.6937783563822324,
+  "processing_lag_p99_s": 4.131107053622909,
+  "partition_assignments_logged": 7,
+  "consumer_memory_after": [
+    "repostream-consumer-1 122.1MiB / 512MiB",
+    "repostream-consumer-3 77.7MiB / 512MiB",
+    "repostream-consumer-2 78.02MiB / 512MiB"
+  ],
+  "max_broker_lag": 3860.0,
+  "quiet_before_start": true,
+  "alerts_pending_at_s": {},
+  "alerts_fired_at_s": {},
+  "reconcile": {
+    "window": [
+      "2026-11-20T00",
+      "2026-11-21T00"
+    ],
+    "batch_events": 150695,
+    "stream_events_table": 150695,
+    "stream_aggregate_sum": 150695,
+    "keys_batch": 131181,
+    "keys_stream": 131181,
+    "mismatched_keys": 0,
+    "extra_keys": 0,
+    "late_events_flagged": 8,
+    "exact_match": true,
+    "sample_mismatches": []
+  },
+  "ran_at": "2026-11-25T03:25:38.380829+00:00",
+  "consumer_group": "exp-baseline-20261125032426"
+}

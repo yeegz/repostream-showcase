@@ -1,0 +1,38 @@
+{
+  "A_default": {
+    "p50_ms": 271.17,
+    "p95_ms": 441.74,
+    "n": 100
+  },
+  "B_work_mem_128MB": {
+    "p50_ms": 269.4,
+    "p95_ms": 405.98,
+    "n": 100
+  },
+  "C_partial_index": {
+    "p50_ms": 23.33,
+    "p95_ms": 26.41,
+    "n": 100
+  },
+  "same_top20_A_B": true,
+  "same_top20_A_C": true,
+  "partial_index_bytes": 11034624,
+  "plan_C": [
+    "Limit  (cost=6161.08..6161.13 rows=20 width=40) (actual time=32.250..32.253 rows=20 loops=1)",
+    "  Buffers: shared hit=415",
+    "  ->  Sort  (cost=6161.08..6335.41 rows=69732 width=40) (actual time=32.250..32.251 rows=20 loops=1)",
+    "        Sort Key: (sum(prs_merged)) DESC, repo_id",
+    "        Sort Method: top-N heapsort  Memory: 26kB",
+    "        Buffers: shared hit=415",
+    "        ->  HashAggregate  (cost=3433.89..4305.54 rows=69732 width=40) (actual time=17.134..25.380 rows=67541 loops=1)",
+    "              Group Key: repo_id",
+    "              Batches: 1  Memory Usage: 13329kB",
+    "              Buffers: shared hit=415",
+    "              ->  Index Only Scan using rda_merged_partial on repo_daily_activity  (cost=0.42..3071.07 rows=72564 width=16) (actual time=0.014..5.114 rows=80858 loops=1)",
+    "                    Index Cond: ((dt >= '2026-11-11'::date) AND (dt <= '2026-11-17'::date))",
+    "                    Heap Fetches: 0",
+    "                    Buffers: shared hit=415",
+    "Planning Time: 0.080 ms",
+    "Execution Time: 33.148 ms"
+  ]
+}

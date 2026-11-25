@@ -1,0 +1,162 @@
+{
+  "dataset": {
+    "source": "gold.hourly_capture 2026-11-01..2026-11-24",
+    "rows": 771,
+    "fingerprint": "f9fa5fe97d0280f1",
+    "train": 365,
+    "val": 72,
+    "test": 111,
+    "splits": {
+      "train_end": "2026-11-18",
+      "val_end": "2026-11-21"
+    }
+  },
+  "validation": {
+    "grid": [
+      {
+        "mae": 0.0851,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.1
+      },
+      {
+        "mae": 0.086,
+        "max_leaf_nodes": 31,
+        "learning_rate": 0.1
+      },
+      {
+        "mae": 0.0875,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.03
+      },
+      {
+        "mae": 0.0891,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.03
+      },
+      {
+        "mae": 0.0893,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.1
+      },
+      {
+        "mae": 0.0894,
+        "max_leaf_nodes": 31,
+        "learning_rate": 0.03
+      }
+    ],
+    "baselines": {
+      "persistence": 0.0904,
+      "same_hour_yesterday": 0.1362,
+      "trailing_24h_median": 0.1147
+    }
+  },
+  "test": {
+    "model_mae_log": 0.3533,
+    "baselines_mae_log": {
+      "persistence": 0.1295,
+      "same_hour_yesterday": 0.509,
+      "trailing_24h_median": 0.3135
+    },
+    "best_baseline": "persistence",
+    "mae_diff_vs_best_baseline": {
+      "mean": 0.2239,
+      "ci95": [
+        0.0715,
+        0.4307
+      ]
+    },
+    "interval_90_coverage": 0.45,
+    "by_family": {
+      "push": 1.008,
+      "other": 0.2181
+    },
+    "note": "MAE on log1p(events): 0.1 is roughly a 10% error."
+  },
+  "detection_synthetic": [
+    {
+      "drop": 0.3,
+      "injected": 20,
+      "recall": 0.35,
+      "false_positive_rate": 0.154,
+      "precision": 0.333
+    },
+    {
+      "drop": 0.5,
+      "injected": 20,
+      "recall": 0.55,
+      "false_positive_rate": 0.154,
+      "precision": 0.44
+    },
+    {
+      "drop": 0.8,
+      "injected": 20,
+      "recall": 0.95,
+      "false_positive_rate": 0.154,
+      "precision": 0.576
+    }
+  ],
+  "delta_variants": {
+    "persistence_conformal": {
+      "test_mae_log": 0.1295,
+      "band_log": 0.247,
+      "interval_90_coverage": 0.892,
+      "detection_synthetic": [
+        {
+          "drop": 0.3,
+          "injected": 20,
+          "recall": 0.9,
+          "false_positive_rate": 0.066,
+          "precision": 0.75
+        },
+        {
+          "drop": 0.5,
+          "injected": 20,
+          "recall": 1.0,
+          "false_positive_rate": 0.066,
+          "precision": 0.769
+        },
+        {
+          "drop": 0.8,
+          "injected": 20,
+          "recall": 1.0,
+          "false_positive_rate": 0.066,
+          "precision": 0.769
+        }
+      ]
+    },
+    "delta_hgb_conformal": {
+      "test_mae_log": 0.1509,
+      "band_log": 0.236,
+      "interval_90_coverage": 0.892,
+      "detection_synthetic": [
+        {
+          "drop": 0.3,
+          "injected": 20,
+          "recall": 0.9,
+          "false_positive_rate": 0.044,
+          "precision": 0.818
+        },
+        {
+          "drop": 0.5,
+          "injected": 20,
+          "recall": 1.0,
+          "false_positive_rate": 0.044,
+          "precision": 0.833
+        },
+        {
+          "drop": 0.8,
+          "injected": 20,
+          "recall": 1.0,
+          "false_positive_rate": 0.044,
+          "precision": 0.833
+        }
+      ]
+    }
+  },
+  "drift_psi_train_vs_test": {
+    "lag_1": 1.564,
+    "roll_mean_24": 2.886,
+    "roll_std_24": 7.301
+  },
+  "mlflow_run_id": "6e0e4d0f6a294fda81f2ad482333afcc"
+}

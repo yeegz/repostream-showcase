@@ -1,0 +1,88 @@
+{
+  "experiment": "poison_messages",
+  "window": [
+    "2026-11-20T00",
+    "2026-11-21T00"
+  ],
+  "consumers": 3,
+  "producer": {
+    "sent": 150701,
+    "poison": 1483,
+    "duplicates": 0,
+    "errors": 0,
+    "seconds": 37.68,
+    "msgs_per_second": 4000
+  },
+  "producer_args": [
+    "--rate",
+    "4000",
+    "--poison-rate",
+    "0.01"
+  ],
+  "chaos": [],
+  "seconds_to_caught_up": 39.5,
+  "producer_seconds": 38.5,
+  "end_to_end_msgs_per_second": 3817,
+  "dlq_messages": 1489,
+  "late_events_flagged": 0,
+  "processing_lag_p50_s": 0.6521646691969699,
+  "processing_lag_p99_s": 3.570766283524903,
+  "partition_assignments_logged": 7,
+  "consumer_memory_after": [
+    "repostream-consumer-1 98.53MiB / 512MiB",
+    "repostream-consumer-2 69.87MiB / 512MiB",
+    "repostream-consumer-3 75.75MiB / 512MiB"
+  ],
+  "max_broker_lag": 3586.0,
+  "quiet_before_start": true,
+  "alerts_pending_at_s": {
+    "DeadLetterRateHigh": 16.6
+  },
+  "alerts_fired_at_s": {
+    "DeadLetterRateHigh": 46.7
+  },
+  "reconcile": {
+    "window": [
+      "2026-11-20T00",
+      "2026-11-21T00"
+    ],
+    "batch_events": 150695,
+    "stream_events_table": 149212,
+    "stream_aggregate_sum": 149212,
+    "keys_batch": 131181,
+    "keys_stream": 129993,
+    "mismatched_keys": 1475,
+    "extra_keys": 0,
+    "late_events_flagged": 0,
+    "exact_match": false,
+    "sample_mismatches": [
+      [
+        "(294532881, datetime.datetime(2026, 11, 20, 8, 0, tzinfo=zoneinfo.ZoneInfo(key='UTC')), 'IssueCommentEvent')",
+        4,
+        3
+      ],
+      [
+        "(1406406992, datetime.datetime(2026, 11, 20, 19, 0, tzinfo=zoneinfo.ZoneInfo(key='UTC')), 'PushEvent')",
+        17,
+        16
+      ],
+      [
+        "(1414433732, datetime.datetime(2026, 11, 20, 23, 0, tzinfo=zoneinfo.ZoneInfo(key='UTC')), 'PullRequestEvent')",
+        2,
+        1
+      ],
+      [
+        "(1115773533, datetime.datetime(2026, 11, 20, 15, 0, tzinfo=zoneinfo.ZoneInfo(key='UTC')), 'PushEvent')",
+        3,
+        2
+      ],
+      [
+        "(19935645, datetime.datetime(2026, 11, 20, 2, 0, tzinfo=zoneinfo.ZoneInfo(key='UTC')), 'IssueCommentEvent')",
+        10,
+        9
+      ]
+    ]
+  },
+  "ran_at": "2026-11-25T03:31:17.788339+00:00",
+  "consumer_group": "exp-poison_messages-20261125033006"
+}

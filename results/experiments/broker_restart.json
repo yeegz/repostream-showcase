@@ -1,0 +1,60 @@
+{
+  "experiment": "broker_restart",
+  "window": [
+    "2026-11-20T00",
+    "2026-11-21T00"
+  ],
+  "consumers": 3,
+  "producer": {
+    "sent": 150701,
+    "poison": 0,
+    "duplicates": 0,
+    "errors": 0,
+    "seconds": 37.68,
+    "msgs_per_second": 4000
+  },
+  "producer_args": [
+    "--rate",
+    "4000"
+  ],
+  "chaos": [
+    "t+10s docker compose restart redpanda"
+  ],
+  "seconds_to_caught_up": 39.6,
+  "producer_seconds": 38.6,
+  "end_to_end_msgs_per_second": 3804,
+  "dlq_messages": 6,
+  "late_events_flagged": 11,
+  "processing_lag_p50_s": 0.6994615278407859,
+  "processing_lag_p99_s": 4.477943610604573,
+  "partition_assignments_logged": 10,
+  "consumer_memory_after": [
+    "repostream-consumer-3 78.92MiB / 512MiB",
+    "repostream-consumer-2 90.54MiB / 512MiB",
+    "repostream-consumer-1 78.54MiB / 512MiB"
+  ],
+  "max_broker_lag": 4555.0,
+  "quiet_before_start": true,
+  "alerts_pending_at_s": {
+    "ProcessingLatencySLOBurn": 12.7
+  },
+  "alerts_fired_at_s": {},
+  "reconcile": {
+    "window": [
+      "2026-11-20T00",
+      "2026-11-21T00"
+    ],
+    "batch_events": 150695,
+    "stream_events_table": 150695,
+    "stream_aggregate_sum": 150695,
+    "keys_batch": 131181,
+    "keys_stream": 131181,
+    "mismatched_keys": 0,
+    "extra_keys": 0,
+    "late_events_flagged": 11,
+    "exact_match": true,
+    "sample_mismatches": []
+  },
+  "ran_at": "2026-11-25T03:37:01.566204+00:00",
+  "consumer_group": "exp-broker_restart-20261125033419"
+}

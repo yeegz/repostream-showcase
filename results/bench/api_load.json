@@ -1,0 +1,31 @@
+{
+  "concurrency": 8,
+  "requests": 4000,
+  "seconds": 11.62,
+  "req_per_s": 344,
+  "status_codes": {
+    "200": 4000
+  },
+  "by_route": {
+    "leaderboard": {
+      "n": 734,
+      "p50_ms": 3.8,
+      "p99_ms": 10.63
+    },
+    "by_name": {
+      "n": 812,
+      "p50_ms": 3.69,
+      "p99_ms": 12.44
+    },
+    "repo_daily": {
+      "n": 1660,
+      "p50_ms": 3.72,
+      "p99_ms": 11.36
+    },
+    "week_merged": {
+      "n": 794,
+      "p50_ms": 98.31,
+      "p99_ms": 178.54
+    }
+  }
+}
